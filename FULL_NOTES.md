@@ -1317,21 +1317,21 @@ ImageNet은 해상도가 다양한 이미지들로 구성되어 있지만, 우�
 ### 번역본
 ---
 뉴런의 출력 f를 입력 x의 함수로 모델링하는 표준적인 방법은
-$$
+```math
 f(x)=tanh(x)\quad또는\quad f(x)=(1+e^{−x})^{−1}
-$$
+```
 형태를 사용하는 것입니다. 그러나 경사하강법(gradient descent)을 이용한 학습 시간 측면에서, 이러한 포화형 비선형 함수(saturating nonlinearities)는 비포화형 비선형 함수(non-saturating nonlinearity)인 
-$$
+```math
 f(x)=max(0,x)
-$$
+```
 보다 훨씬 느립니다. Nair와 Hinton [20]을 따라, 우리는 이러한 비선형 함수를 사용하는 뉴런을 정류 선형 유닛(Rectified Linear Units, **ReLU**s)이라고 부릅니다. ReLU를 사용하는 심층 합성곱 신경망은 tanh 유닛을 사용하는 네트워크보다 몇 배나 빠르게 학습됩니다. 이는 그림 1에서 보여지는데, 해당 그림은 특정 4층 합성곱 신경망이 CIFAR-10 데이터셋에서 훈련 오류 25%에 도달하기 위해 필요한 반복 횟수를 나타냅니다. 이 그래프는 우리가 만약 전통적인 포화형 뉴런 모델을 사용했다면, 본 연구에서 이처럼 큰 신경망들을 실험할 수 없었을 것임을 보여줍니다.
 
 포화형 비선형 함수(sigmoid, tanh)보다 비포화형 비선형 함수(ReLU)가 더 빠르게 학습
 
 우리가 CNN에서 전통적인 뉴런 모델의 대안을 고려한 최초의 연구자는 아닙니다. 예를 들어, Jarrett 등 [11]은 그들의 방식의 대비 정규화(contrast normalization) 뒤에 지역 평균 풀링(local average pooling)을 적용했을 때, 비선형 함수
-$$
+```math
 f(x)=∣tanh⁡(x)∣
-$$
+```
 이 특히 잘 작동한다고 주장했습니다. 그러나 이 데이터셋(Caltech-101)에서는 주요 관심사가 과적합을 방지하는 것이기 때문에, 그들이 관찰한 효과는 우리가 ReLU를 사용할 때 보고한 훈련 세트를 더 빠르게 적합시키는 능력 향상과는 다른 것입니다.
 더 빠른 학습은 큰 데이터셋에서 학습되는 대형 모델의 성능에 매우 큰 영향을 미칩니다.
 
@@ -2113,9 +2113,9 @@ ImageNet 데이터셋에서 우리는 **152층**에 달하는 잔차 네트워�
 [image omitted: temporary Notion asset]
 이 논문에서 우리는 이러한 degradation 문제를 해결하기 위해 **deep residual learning** 프레임워크를 제안한다. 여러 layer가 원하는 mapping을 직접 학습하도록 두는 대신, 우리는 이 layer들이 **residual mapping**을 학습하도록 한다.
 원하는 mapping을 H(x)라고 하면, residual은 다음과 같다:
-$$
+```math
 F(x) = H(x) − x
-$$
+```
 즉, 원래의 mapping은 F(x) + x로 다시 표현된다.
 이 residual mapping을 최적화하는 것이, 참조 정보가 없는 원래 mapping을 직접 최적화하는 것보다 더 쉽다는 것이 우리의 가설이다. 극단적인 경우, 최적의 함수가 identity mapping이라면, 여러 비선형 layer로 identity를 직접 학습하는 것보다 residual을 0으로 만드는 편이 훨씬 쉽다. **F(x) + x 구조는 shortcut connection을 가진 feedforward 네트워크로 구현**된다.
 Shortcut connection은 하나 이상의 layer를 건너뛰는 연결이며, 우리의 경우 shortcut은 단순한 identity mapping을 수행하고, 그 출력은 쌓인 layer 출력과 더해진다.
@@ -3222,9 +3222,9 @@ Faster R-CNN backbone을 VGG-16 → ResNet-101로 교체하니:
 ### 3) **“이들은 이전 은닉 상태 ht−1과 위치 t의 입력을 이용해 ht를 생성한다”**
 -  RNN의 핵심 정의를 서술한 것이다.
 - 은닉 상태 ht는 다음 함수로 정의된다:
-$$
+```math
 h_{t}=f(h_{t−1},x_{t})
-$$
+```
 - ht−1 : 이전 단계까지의 누적 정보(메모리)
 - xt : 현재 시점의 입력 토큰
 - f : RNN/LSTM/GRU 셀의 변환 함수
@@ -3500,9 +3500,9 @@ y3을 생성할 때 y4, y5는 -∞ 처리 → 무시
 **Encoder:**
 인코더는 N = 6개의 동일한 층으로 이루어진 스택으로 구성된다. 각 층은 두 개의 서브레이어를 가진다. 첫 번째 서브레이어는 멀티-헤드 자기-어텐션(multi-head self-attention) 메커니즘이고, 두 번째는 위치별(position-wise) 완전연결(feed-forward) 네트워크이다.
 우리는 두 서브레이어 각각을 둘러싸는 **잔차 연결(residual connection)** [11]을 사용하고, 그 뒤에 레이어 정규화(layer normalization) [1]를 적용한다. 즉, 각 서브레이어의 출력은 다음과 같다:
-$$
+```math
 LayerNorm(x + Sublayer(x))
-$$
+```
 여기서 Sublayer(x)는 해당 서브레이어가 구현하는 함수이다. 이러한 잔차 연결을 가능하게 하기 위해, 모델의 모든 서브레이어와 임베딩 층은 출력 차원이 d_model = 512가 되도록 한다.
 **Decoder:**
 디코더도 N = 6개의 동일한 층으로 구성된 스택이다. 디코더의 각 층에는 인코더 층과 동일한 두 개의 서브레이어에 더해, 세 번째 서브레이어가 추가된다. 이 서브레이어는 인코더 스택의 출력에 대해 멀티-헤드 어텐션을 수행한다.
@@ -3514,9 +3514,9 @@ $$
 ## **인코더 - 잔차 연결**
 
 - 입력 x를 서브레이어 출력과 그대로 더해주는(skip) 연결이다.
-$$
+```math
 output=x+sublayer(x)
-$$
+```
 - 이렇게 **입력 x를 그대로 더해주는 것이 residual connection**이야.
 - 왜 하냐면?
 - 깊은 네트워크에서 **정보가 사라지지 않게**
@@ -3529,14 +3529,14 @@ $$
 근데 He et al.(ResNet)이 발견한 게 뭐냐면:
 > H(x)를 직접 학습하는 것보다<br>(H(x) - x), 즉 ‘얼마나 변화(잔차)시킬지’만 학습하는 게 훨씬 쉽다.
 즉,
-$$
+```math
 F(x)=H(x)−x
-$$
+```
 이 **F(x) = 잔차(residual)** 임.
 그래서 실제 출력은:
-$$
+```math
 H(x)=F(x)+x
-$$
+```
 이게 바로 residual connection의 핵심 공식이다.
 
 
@@ -3914,6 +3914,7 @@ Self-Attention이 문장 전체를 보면서도
 <td>O(k · n · d²)</td>
 </tr>
 </table>
+
 ### self-attention이 O(n²)인 이유:
 모든 단어가 모든 단어와 dot product(M×M)를 계산하기 때문 → n×n
 ### RNN이 O(n)인 이유:
@@ -3941,6 +3942,7 @@ Self-Attention이 문장 전체를 보면서도
 <td>**O(1)** (병렬)</td>
 </tr>
 </table>
+
 ### 왜 self-attention은 O(1)?
 모든 단어가 동시에 attention score를 계산할 수 있기 때문.
 순서가 필요 없음.
@@ -3971,6 +3973,7 @@ Self-Attention이 문장 전체를 보면서도
 <td>O(n/r)</td>
 </tr>
 </table>
+
 ### path length = 두 위치 사이의 정보 전달” 거리
 예:
 문장:
@@ -4627,6 +4630,7 @@ dropout이 상당히 유용하다는 것을 확인한 실험.
 <td>학습형도 OK, 하지만 sin/cos이 더 범용적</td>
 </tr>
 </table>
+
 ## A) head 수와 head 차원(d_k, d_v) 변화
 - head=1 → BLEU 0.9 감소
 - head 너무 많아도 성능 저하
@@ -4781,6 +4785,7 @@ Transformer의 서로 다른 attention head들은 문장의 구조를 서로 다
 <td>완전연결층에 적용, 과적합 대폭 감소</td>
 </tr>
 </table>
+
 ### Abstract {toggle="true"}
 #### 해석
 ---
@@ -4934,21 +4939,21 @@ ImageNet은 이미지 크기가 제각각이라 통일이 필요했어요.
 
 
 뉴런의 출력 f를 입력 x의 함수로 모델링하는 표준적인 방법은
-$$
+```math
 f(x)=tanh(x)\quad또는\quad f(x)=(1+e^{−x})^{−1}
-$$
+```
 형태를 사용하는 것입니다. 그러나 경사하강법(gradient descent)을 이용한 학습 시간 측면에서, 이러한 포화형 비선형 함수(saturating nonlinearities)는 비포화형 비선형 함수(non-saturating nonlinearity)인 
-$$
+```math
 f(x)=max(0,x)
-$$
+```
 보다 훨씬 느립니다. Nair와 Hinton [20]을 따라, 우리는 이러한 비선형 함수를 사용하는 뉴런을 정류 선형 유닛(Rectified Linear Units, **ReLU**s)이라고 부릅니다. ReLU를 사용하는 심층 합성곱 신경망은 tanh 유닛을 사용하는 네트워크보다 몇 배나 빠르게 학습됩니다. 이는 **그림 1**에서 보여지는데, 해당 그림은 특정 4층 합성곱 신경망이 CIFAR-10 데이터셋에서 훈련 오류 25%에 도달하기 위해 필요한 반복 횟수를 나타냅니다. 이 그래프는 우리가 만약 전통적인 포화형 뉴런 모델을 사용했다면, 본 연구에서 이처럼 큰 신경망들을 실험할 수 없었을 것임을 보여줍니다.
 
 포화형 비선형 함수(sigmoid, tanh)보다 비포화형 비선형 함수(ReLU)가 더 빠르게 학습
 
 우리가 CNN에서 전통적인 뉴런 모델의 대안을 고려한 최초의 연구자는 아닙니다. 예를 들어, Jarrett 등 [11]은 그들의 방식의 대비 정규화(contrast normalization) 뒤에 지역 평균 풀링(local average pooling)을 적용했을 때, 비선형 함수
-$$
+```math
 f(x)=∣tanh⁡(x)∣
-$$
+```
 이 특히 잘 작동한다고 주장했습니다. 그러나 이 데이터셋(Caltech-101)에서는 주요 관심사가 과적합을 방지하는 것이기 때문에, 그들이 관찰한 효과는 우리가 ReLU를 사용할 때 보고한 훈련 세트를 더 빠르게 적합시키는 능력 향상과는 다른 것입니다.
 더 빠른 학습은 큰 데이터셋에서 학습되는 대형 모델의 성능에 매우 큰 영향을 미칩니다.
 
@@ -5417,9 +5422,9 @@ ImageNet 데이터셋에서 우리는 **152층**에 달하는 잔차 네트워�
 [image omitted: temporary Notion asset]
 이 논문에서 우리는 이러한 degradation 문제를 해결하기 위해 **deep residual learning** 프레임워크를 제안한다. 여러 layer가 원하는 mapping을 직접 학습하도록 두는 대신, 우리는 이 layer들이 **residual mapping**을 학습하도록 한다.
 원하는 mapping을 H(x)라고 하면, residual은 다음과 같다:
-$$
+```math
 F(x) = H(x) − x
-$$
+```
 즉, 원래의 mapping은 F(x) + x로 다시 표현된다.
 이 residual mapping을 최적화하는 것이, 참조 정보가 없는 원래 mapping을 직접 최적화하는 것보다 더 쉽다는 것이 우리의 가설이다. 극단적인 경우, 최적의 함수가 identity mapping이라면, 여러 비선형 layer로 identity를 직접 학습하는 것보다 residual을 0으로 만드는 편이 훨씬 쉽다. **F(x) + x 구조는 shortcut connection을 가진 feedforward 네트워크로 구현**된다.
 Shortcut connection은 하나 이상의 layer를 건너뛰는 연결이며, 우리의 경우 shortcut은 단순한 identity mapping을 수행하고, 그 출력은 쌓인 layer 출력과 더해진다.
@@ -6616,9 +6621,9 @@ Attention  → 문장 전체를 보면서 "단어 간 관계" 학습
 **Encoder:**
 인코더는 N = 6개의 동일한 층으로 이루어진 스택으로 구성된다. 각 층은 두 개의 서브레이어를 가진다. 첫 번째 서브레이어는 멀티-헤드 자기-어텐션(multi-head self-attention) 메커니즘이고, 두 번째는 위치별(position-wise) 완전연결(feed-forward) 네트워크이다.
 우리는 두 서브레이어 각각을 둘러싸는 **잔차 연결(residual connection)** [11]을 사용하고, 그 뒤에 레이어 정규화(layer normalization) [1]를 적용한다. 즉, 각 서브레이어의 출력은 다음과 같다:
-$$
+```math
 LayerNorm(x + Sublayer(x))
-$$
+```
 여기서 Sublayer(x)는 해당 서브레이어가 구현하는 함수이다. 이러한 잔차 연결을 가능하게 하기 위해, 모델의 모든 서브레이어와 임베딩 층은 출력 차원이 d_model = 512가 되도록 한다.
 **Decoder:**
 디코더도 N = 6개의 동일한 층으로 구성된 스택이다. 디코더의 각 층에는 인코더 층과 동일한 두 개의 서브레이어에 더해, 세 번째 서브레이어가 추가된다. 이 서브레이어는 인코더 스택의 출력에 대해 멀티-헤드 어텐션을 수행한다.
@@ -7250,6 +7255,7 @@ LayerNorm(x+Sublayer(x))LayerNorm(x + Sublayer(x))
 <td>단어 생성 시 후보 탐색</td>
 </tr>
 </table>
+
 ## Checkpoint
 학습 중간중간 모델 상태를 저장한 것으로, 마지막 여러 개를 **평균내서** 더 안정적인 최종 모델을 만듭니다.
 ## Beam Search
