@@ -1,20 +1,17 @@
-# Computer Vision PBL
+<p align="center"><img src="./course-panel.svg" width="100%" alt="COMPUTER VISION PBL panel"/></p>
 
-Computer Vision의 주요 모델과 논문을 읽고 핵심 아이디어를 정리한 대학원 학습 저장소입니다.
+# COMPUTER VISION PBL
 
-## Paper Notes
+대학원 수업에서 작성한 논문 정리, 실습 기록과 모델 분석을 내용 중심으로 복원한 저장소입니다.
 
-### AlexNet
-대규모 이미지 분류에서 깊은 합성곱 신경망의 가능성을 보여준 구조를 살펴봅니다.
+## Archive
 
-### ResNet
-Residual connection이 깊은 네트워크의 최적화를 어떻게 돕는지 정리합니다.
+- [전체 학습 기록 보기](./FULL_NOTES.md)
+- 총 **12개 페이지** 수록
+- 논문 핵심 내용, 수식, 코드, 실험 메모와 개인 해석 유지
+- 개인 식별 정보만 제거
 
-### Attention Is All You Need
-Self-attention과 Transformer 구조의 핵심 원리를 살펴봅니다.
+## Research Scope
 
-## Interest
+`ALEXNET` · `RESNET` · `TRANSFORMER`
 
-이미지 안의 형태와 구조를 이해하고 이를 실제 시스템의 분석과 검사에 연결하는 문제에 관심이 있습니다.
-
-대회 내부 기록, 시험 답안과 현재 연구의 비공개 데이터·구현·실험 결과는 포함하지 않습니다.
